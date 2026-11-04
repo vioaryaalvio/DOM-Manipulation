@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang='id'>
+<head>
+  <meta charset='UTF-8'>
+  <title>Daftar Belanja</title>
+  <style>
+    body { font-family: Arial; max-width: 400px; margin: 40px auto; }
+    li { margin: 8px 0; }
+    li button { margin-left: 10px; }
+  </style>
+</head>
+<body>
+  <h2>Daftar Belanja</h2>
+  <input type='text' id='barang' placeholder='Nama barang'>
+  <button id='btnTambah'>Tambah</button>
+  <p>Jumlah barang: <b id='jumlah'>0</b></p> 
+  <ul id='daftar'></ul>
+
+  <script>
+    const barang = document.getElementById('barang');
+    const btnTambah = document.getElementById('btnTambah');
+    const daftar = document.getElementById('daftar');
+    const jumlah = document.getElementById('jumlah'); 
+
+    function hitungBarang() {
+      jumlah.textContent = daftar.children.length;
+    }
+
+    btnTambah.addEventListener('click', () => {
+      if (barang.value === '') {
+        alert('Isi nama barang dulu ya!');
+        return;
+      }
+
+      const li = document.createElement('li');
+      li.textContent = barang.value;
+
+      const btnHapus = document.createElement('button');
+      btnHapus.textContent = 'Hapus';
+      btnHapus.addEventListener('click', () => {
+        li.remove();
+        hitungBarang();
+      });
+
+      li.appendChild(btnHapus);
+      daftar.appendChild(li);
+
+      barang.value = '';
+      hitungBarang();
+    });
+
+    barang.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        btnTambah.click();
+      }
+    });
+  </script>
+</body>
+</html>
